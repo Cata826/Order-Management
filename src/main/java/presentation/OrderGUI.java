@@ -15,6 +15,7 @@ public class OrderGUI extends JFrame {
     private List<Product> productList;
     private JTable productTable;
    // private BillDAO billDao;
+    private JButton refreshButton;
     private ProductGUI gus =new ProductGUI();
     private JTextField orderIdTextField;
     private JTextField clientTextField;
@@ -69,13 +70,16 @@ public class OrderGUI extends JFrame {
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
                                             addOrder();
-//                                            BillGUI billGUI = new BillGUI();
-//                                            billGUI.setVisible(true);
-                     //                       BillGUI guy =new BillGUI();
-                                            //                     guy.setVisible(true);
+
                                         }
                                     });
-
+        refreshButton = new JButton("Refresh");
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                refreshOrderTable();
+            }
+        });
         updateButton = new JButton("Update");
         updateButton.addActionListener(new ActionListener() {
             @Override
@@ -96,6 +100,7 @@ public class OrderGUI extends JFrame {
         buttonPanel.add(addButton);
         buttonPanel.add(updateButton);
         buttonPanel.add(deleteButton);
+        buttonPanel.add(refreshButton);
 
         mainPanel.add(inputPanel, BorderLayout.NORTH);
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
@@ -154,14 +159,6 @@ private void addOrder() {
     BillDAO billDAO = new BillDAO();
     billDAO.insertBill(bill);
 
-
-    //billDao.insertBill(bill);
-//    String billInfo = "Order ID: " + bill.orderId() + "\n"
-//            + "Client ID: " + bill.clientId() + "\n"
-//            + "Product ID: " + bill.productId() + "\n"
-//            + "Value: " + bill.value();
-
-   // JOptionPane.showMessageDialog(this, billInfo, "Bill Information", JOptionPane.INFORMATION_MESSAGE);
 
 
     orderIdTextField.setText("");

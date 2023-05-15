@@ -7,12 +7,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import dao.BillDAO;
 import model.Bill;
-
+import dao.*;
 public class BillGUI extends JFrame {
 
     private BillDAO billDAO;
     private DefaultTableModel tableModel;
     private JTable table;
+    private OrderGUI gusi;
     private JLabel totalLabel;
 
     public BillGUI() {
@@ -46,6 +47,8 @@ public class BillGUI extends JFrame {
                 deleteSelectedBill();
             }
         });
+
+
 
         JButton calculateTotalButton = new JButton("Calculate Total");
         calculateTotalButton.addActionListener(new ActionListener() {
@@ -101,6 +104,10 @@ public class BillGUI extends JFrame {
             int confirmDialog = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this bill?", "Delete Bill", JOptionPane.YES_NO_OPTION);
             if (confirmDialog == JOptionPane.YES_OPTION) {
                 billDAO.deleteBill(bill);
+
+                OrderDAO orderDAO = new OrderDAO();
+                orderDAO.deleteOrder(orderId);
+
                 loadBills();
                 calculateTotalValue();
             }
