@@ -10,7 +10,7 @@ public class BillDAO extends AbstractDAO<Bill> {
     private static final String SELECT_ALL_QUERY = "SELECT * FROM bill";
     private static final String INSERT_QUERY = "INSERT INTO bill (order_id, client_id, product_id, value) VALUES (?, ?, ?, ?)";
 
-
+    private static final String DELETE_QUERY = "DELETE FROM bill WHERE order_id = ?";
     @Override
     protected String getTableName() {
         return "bill";
@@ -45,5 +45,10 @@ public class BillDAO extends AbstractDAO<Bill> {
     public void insertBill(Bill bill) {
         executeInsertQuery(INSERT_QUERY, bill.orderId(), bill.clientId(), bill.productId(), bill.value());
     }
+    public void deleteBill(Bill bill) {
+        executeInsertQuery(DELETE_QUERY, bill.orderId());
+    }
+
+
 
 }

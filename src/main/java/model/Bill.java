@@ -18,7 +18,6 @@ public record Bill(int orderId, int clientId, int productId, int value) {
         }
     }
 
-    // Getters and setters for all fields
     public int orderId() {
         return orderId;
     }

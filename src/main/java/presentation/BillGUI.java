@@ -3,12 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import dao.BillDAO;
 import model.Bill;
@@ -38,10 +33,17 @@ public class BillGUI extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table);
 
         JButton loadButton = new JButton("Load Bills");
+        JButton deleteButton = new JButton("Delete Bill");
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadBills();
+            }
+        });
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteSelectedBill();
             }
         });
 
@@ -54,8 +56,10 @@ public class BillGUI extends JFrame {
             }
         });
 
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(loadButton);
+        buttonPanel.add(deleteButton);
         buttonPanel.add(calculateTotalButton);
 
         totalLabel = new JLabel("Total Value: 0");
@@ -88,5 +92,25 @@ public class BillGUI extends JFrame {
 
         return totalValue;
     }
+    private void deleteSelectedBill() {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow != -1) {
+            int orderId = Integer.parseInt(tableModel.getValueAt(selectedRow, 0).toString());
+            Bill bill = new Bill(orderId, 0, 0, 0);
+
+            int confirmDialog = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this bill?", "Delete Bill", JOptionPane.YES_NO_OPTION);
+            if (confirmDialog == JOptionPane.YES_OPTION) {
+                billDAO.deleteBill(bill);
+                loadBills();
+                calculateTotalValue();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a bill from the table to delete.", "Delete Bill", JOptionPane.WARNING_MESSAGE);
+        }
+
+    }
+
+
+
 
 }

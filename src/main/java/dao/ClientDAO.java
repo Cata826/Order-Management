@@ -13,8 +13,8 @@ public class ClientDAO extends AbstractDAO<Client> {
 
     private static final String SELECT_ALL_QUERY = "SELECT * FROM client";
     private static final String SELECT_BY_ID_QUERY = "SELECT * FROM client WHERE clientId = ?";
-    private static final String INSERT_QUERY = "INSERT INTO client (clientId, name, contact, address) VALUES (?, ?, ?, ?)";
-    private static final String UPDATE_QUERY = "UPDATE client SET name = ?, contact = ?, address = ? WHERE clientId = ?";
+    private static final String INSERT_QUERY = "INSERT INTO client (clientId, name, address,contact) VALUES (?, ?, ?, ?)";
+    private static final String UPDATE_QUERY = "UPDATE client SET name = ?, address = ?, contact = ? WHERE clientId = ?";
     private static final String DELETE_QUERY = "DELETE FROM client WHERE clientId = ?";
 
     @Override
